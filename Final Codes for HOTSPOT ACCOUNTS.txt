@@ -1,0 +1,31 @@
+def x():
+    while True:
+        f = open("Account.txt","r")
+        position = 11
+        mode=int(input('Input:'))
+    
+        if (mode == 1):
+            x = f.read(position)
+            print (x)
+            
+
+        if (mode == 2):
+            f.seek(11)
+            x = f.read(position)
+            print (x)
+        
+        if (mode == 3):
+            f.seek(22)
+            x = f.read(position)
+            print (x)
+
+        if (mode == 4):
+            f.seek(33)
+            x = f.read(position)
+            print (x)
+
+
+        
+x()
+
+
