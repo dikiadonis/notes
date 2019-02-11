@@ -17,3 +17,31 @@ while(True):
     
 cap.release()
 cv2.destroyAllWindows()
+
+import numpy as np
+import cv2
+import RPi.GPIO as GPIO
+import time
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(11,GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
+
+detector= cv2.CascadeClassifier('Source.xml')
+cap = cv2.VideoCapture(0)
+
+while(True):
+     if GPIO.input(11) == 1:
+        ret, img = cap.read()
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        bottles = detector.detectMultiScale(gray, 1.03, 1)
+        for (x,y,w,h) in bottles:
+          cv2.rectangle(img,(x,y),(x+w,y+h),(0,0,255),3)
+          print 'Detected'
+
+        cv2.imshow('Frame',img)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    
+cap.release()
+cv2.destroyAllWindows()
